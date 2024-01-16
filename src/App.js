@@ -1,24 +1,31 @@
 import logo from './logo.svg'; // декларативный
-import './App.css'; // декларативный
+import './App.css';
+import { createElement } from 'react'; // декларативный
 
+// и дальше императивный стиль
 export const App = () => {
-	return (
-		<div className="App">
-			<header className="App-header">
-				<img src={logo} className="App-logo" alt="logo" />
-				<p>
-					Edit <code>src/App.js</code> and save to reload.
-				</p>
-				<a
-					className="App-link"
-					href="https://reactjs.org"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Learn React
-				</a>
-				<div>{new Date().getFullYear()}</div>
-			</header>
-		</div> // декларативный, а внутри строки <div>{new Date().getFullYear()}</div> императивный
+	return createElement(
+		'div',
+		{ 'className': 'App' },
+		header,
 	);
 };
+
+const a = createElement('a',
+	{
+		className: 'App-link',
+		href: 'https://reactjs.org',
+		target: '_blank',
+		rel: "noopener noreferrer"
+	}, 'Learn React');
+
+const year = new Date().getFullYear();
+const yearElem = createElement('div', null, `${year}`);
+const p = createElement('p', null, 'Edit ',
+	createElement('code', null, 'src/App.js'),
+	' and save to reload.')
+const img = createElement('img',
+	{ src: `${logo}`, className: 'App-logo', alt: 'logo' });
+const header = createElement('header',
+	{ className: 'App-header' }, img, p, a, yearElem);
+
